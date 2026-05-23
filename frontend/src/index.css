@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-800 font-sans antialiased
+           dark:bg-slate-950 dark:text-slate-100
+           transition-colors duration-300;
+  }
+
+  /* Scrollbar — thin and themed */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-slate-100 dark:bg-slate-900; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-300 dark:bg-slate-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-slate-400 dark:bg-slate-600; }
+}
+
+@layer utilities {
+  /* Range slider thumb */
+  input[type='range'] {
+    accent-color: #0ea5e9;
+  }
+  .dark input[type='range'] {
+    accent-color: #38bdf8;
+  }
+
+  /* Page fade-in */
+  .page-enter { animation: fadeUp 0.3s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #4F46E5, #7C3AED);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass card — adapts for light & dark modes */
+  .glass-card {
+    background-color: rgba(255,255,255,0.92);
+    backdrop-filter: blur(6px) saturate(110%);
+    -webkit-backdrop-filter: blur(6px) saturate(110%);
+    border: 1px solid rgba(15,23,42,0.06);
+    border-radius: 1rem;
+    box-shadow: 0 6px 30px rgba(2,6,23,0.06);
+    transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+  }
+
+  .glass-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(79,70,229,0.06); }
+
+  .dark .glass-card {
+    background-color: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 6px 30px rgba(15,23,42,0.6);
+  }
+
+  /* Dropdown slide-up animation */
+  .animate-slide-up {
+    animation: slideUp 0.18s ease both;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Input field base — consistent across light/dark */
+  .input-field {
+    @apply w-full border border-slate-300 dark:border-slate-700
+           bg-white dark:bg-slate-950
+           text-slate-900 dark:text-white
+           placeholder-slate-400 dark:placeholder-slate-500
+           rounded-xl px-4 py-2.5 text-sm
+           focus:outline-none focus:ring-2 focus:ring-brand-400 dark:focus:ring-brand-500
+           transition-all duration-200;
+  }
+
+  /* Button primary gradient */
+  .btn-primary {
+    background: linear-gradient(90deg, rgba(79,70,229,1) 0%, rgba(124,58,237,1) 100%);
+    color: white;
+    box-shadow: 0 8px 30px rgba(79,70,229,0.12);
+    border-radius: 1rem;
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+  }
+  .btn-primary:hover { transform: translateY(-3px); filter: brightness(1.03); }
+}
