@@ -58,13 +58,13 @@ python backend/ml_old/data_pipeline.py
 python backend/ml_old/train_model.py
 ```
 
-Trained artifacts are stored under `model_artifacts/` and `instance/ml/artifacts/` (if present). The API will load model/data from the configured paths when available.
+Trained artifacts are loaded from `backend/ml/artifacts` when available. If you want to regenerate the model, use the scripts in `backend/ml_old/`.
 
 3) Run the Flask backend API
 
 ```bash
 # from repo root
-python backend/run.py
+python -m backend.run
 # The backend starts on http://127.0.0.1:5000 and exposes the API under /api
 ```
 
@@ -95,6 +95,19 @@ Then serve the static `dist/` files or integrate with your preferred hosting.
 ## API overview
 
 - The Flask app registers its routes under `/api` (see `backend/adapters/inbound/api_rest.py`). The React client talks to these endpoints via the `frontend/src/api/client.js` axios client.
+- The backend loads ML artifacts from `backend/ml/artifacts` when available.
+
+### Verified API endpoints
+- `POST /api/auth/register` — create account
+- `POST /api/auth/login` — receive JWT token
+- `GET /api/auth/me` — current user profile (JWT required)
+- `POST /api/predict` — generate role prediction (JWT required)
+- `GET /api/history` — list user predictions (JWT required)
+- `GET /api/history/<id>` — get one prediction detail (JWT required)
+- `PUT /api/profile` — update user profile or password (JWT required)
+- `GET /api/roles` — public role metadata
+- `POST /api/retrain` — trigger model retraining (JWT required)
+- `GET /api/retrain/status` — check retrain status (JWT required)
 
 ## Development notes & tips
 
